@@ -8,7 +8,7 @@
 // ============================================================
 const CONFIG = {
   // Your Cloudflare Worker URL (update after deploying worker.js)
-  WORKER_URL: "https://floral-base-8f7f.xxgoldenwarriors.workers.dev/",
+  WORKER_URL: "https://floral-base-8f7f.xxgoldenwarriors.workers.dev",
 
   // Fallback: direct AnimePahe API (only works if CORS is open, usually blocked)
   DIRECT_URL: "https://animepahe.ru",
@@ -40,7 +40,7 @@ const State = {
 // API
 // ============================================================
 const API = {
-  base: CONFIG.WORKER_URL,
+  base: CONFIG.WORKER_URL.replace(/\/$/, ""), // strip trailing slash
 
   async get(endpoint) {
     const url = `${this.base}${endpoint}`;
