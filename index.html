@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animeru — Watch Anime Online</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛩</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header id="header">
+    <nav class="nav">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">⛩</span>
+        <span class="logo-text">animeru<span class="logo-dot">.</span>tv</span>
+      </a>
+      <div class="search-wrap">
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="searchInput" type="text" placeholder="Search anime..." autocomplete="off" />
+          <kbd class="search-kbd">⌘K</kbd>
+        </div>
+        <div id="searchResults" class="search-dropdown hidden"></div>
+      </div>
+      <div class="nav-actions">
+        <button class="icon-btn" id="randomBtn" title="Random Anime">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+        </button>
+        <button class="icon-btn" id="historyBtn" title="Watch History">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main id="app">
+    <!-- HOME PAGE -->
+    <div id="homePage" class="page active">
+      <!-- HERO CAROUSEL -->
+      <section class="hero" id="heroSection">
+        <div class="hero-slides" id="heroSlides"></div>
+        <div class="hero-nav">
+          <button class="hero-btn" id="heroPrev">‹</button>
+          <div class="hero-dots" id="heroDots"></div>
+          <button class="hero-btn" id="heroNext">›</button>
+        </div>
+        <div class="hero-info" id="heroInfo"></div>
+      </section>
+
+      <!-- GENRE PILLS -->
+      <section class="genres-row">
+        <div class="genres-scroll" id="genrePills">
+          <button class="genre-pill active" data-genre="">All</button>
+          <button class="genre-pill" data-genre="action">Action</button>
+          <button class="genre-pill" data-genre="adventure">Adventure</button>
+          <button class="genre-pill" data-genre="comedy">Comedy</button>
+          <button class="genre-pill" data-genre="drama">Drama</button>
+          <button class="genre-pill" data-genre="fantasy">Fantasy</button>
+          <button class="genre-pill" data-genre="horror">Horror</button>
+          <button class="genre-pill" data-genre="mystery">Mystery</button>
+          <button class="genre-pill" data-genre="romance">Romance</button>
+          <button class="genre-pill" data-genre="sci-fi">Sci-Fi</button>
+          <button class="genre-pill" data-genre="slice-of-life">Slice of Life</button>
+          <button class="genre-pill" data-genre="sports">Sports</button>
+          <button class="genre-pill" data-genre="supernatural">Supernatural</button>
+          <button class="genre-pill" data-genre="thriller">Thriller</button>
+          <button class="genre-pill" data-genre="psychological">Psychological</button>
+          <button class="genre-pill" data-genre="mecha">Mecha</button>
+          <button class="genre-pill" data-genre="music">Music</button>
+          <button class="genre-pill" data-genre="mahou-shoujo">Mahou Shoujo</button>
+          <button class="genre-pill" data-genre="ecchi">Ecchi</button>
+        </div>
+      </section>
+
+      <!-- RECENTLY AIRED -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Recently Aired</h2>
+          <button class="see-all" data-section="recent">See all →</button>
+        </div>
+        <div class="anime-grid" id="recentGrid">
+          <div class="skeleton-row">
+            ${Array(12).fill('<div class="card-skeleton"></div>').join('')}
+          </div>
+        </div>
+      </section>
+
+      <!-- WATCH HISTORY -->
+      <section class="section" id="historySection" style="display:none">
+        <div class="section-header">
+          <h2 class="section-title">Watch History</h2>
+          <button class="see-all clear-history-btn">Clear all</button>
+        </div>
+        <div class="anime-grid" id="historyGrid"></div>
+      </section>
+    </div>
+
+    <!-- ANIME DETAIL PAGE -->
+    <div id="detailPage" class="page hidden">
+      <div class="detail-container" id="detailContainer"></div>
+    </div>
+
+    <!-- WATCH PAGE -->
+    <div id="watchPage" class="page hidden">
+      <div class="watch-layout">
+        <div class="watch-main">
+          <div class="player-wrap">
+            <div id="playerContainer" class="player-container">
+              <div class="player-placeholder">
+                <div class="spinner"></div>
+                <p>Loading episode...</p>
+              </div>
+            </div>
+          </div>
+          <div class="episode-info-bar" id="episodeInfoBar"></div>
+        </div>
+        <aside class="watch-sidebar" id="watchSidebar"></aside>
+      </div>
+      <div class="watch-meta" id="watchMeta"></div>
+    </div>
+  </main>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
